@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Reddit Search Box</title>
+	<link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles.css') }}">
+    <link rel= "stylesheet" type= "text/css" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{ url_for('static',filename='animate.css') }}">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="{{ url_for('static',filename='/js/custom.js') }}"></script>
+
+	
+</head>
+
+<body>
+<div class="top_navbar">
+		<div class="nav_box" >	
+		</div>	
+</div>
+
+<div class="wrapper">
+	<form action = "/sub_data" method = "POST">
+		<div class="search_box animated swing" >
+			<input type="text" name = 'sub' class="input_search" placeholder="Type in your favourate subreddit">
+			<button type="submit" class="search_btn"><i class="fas fa-search"></i></button>
+		</div>	
+    </form>
+</div>
+
+<div class="pad">
+    <form class ="fm-style" action = "/sub_data" method = "POST">
+	<div class="instalinks col-xs-12">
+		<button type="submit" name = "sub" value = 'news' class="btn btn-primary b1" style="background-color: #242B2E">News</button>
+        <a style="padding-right: 10px"></a>
+		<button type="submit" name= "sub" value = 'politics' class="btn btn-primary" style="background-color:#242B2E">Politics</button>
+		<a style="padding-right: 10px"></a>
+		<button type="submit" name= "sub" value = 'PoliticalCompassMemes' class="btn btn-primary" style="background-color: #242B2E"  >PoliticalCompassMemes</button>
+		<a style="padding-right: 10px"></a>
+		<button type="submit" name ="sub" value= 'Conservative' class="btn btn-primary" style="background-color: #242B2E" >Conservative</button>
+		<a style="padding-right: 10px"></a>
+		<button type="submit" name = "sub" value = 'socialism' class="btn btn-primary" style="background-color: #242B2E" >Socialism</button>
+	</div>
+</form>
+    
+</div>
+
+
+
+
+
+
+</body>
+</html>

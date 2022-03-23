@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+    
+}
+/*
+
+.b1{
+    background-color: #242B2E;
+    padding-right: 10px;
+}
+*/
+html, body{
+	
+   
+    width:100%;
+    padding:0;
+    margin:0;
+}
+
+.colour-change:active{
+    color: black;
+}
+
+.colour-change:visited{
+    color: aliceblue;
+}
+
+.wrapper{
+	min-height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    padding-right: 25px;
+    padding-top: 200px;
+     
+}
+
+
+.search_box{
+	background: #758283;
+	position: relative;
+	padding: 15px;
+	border-radius: 50px;
+	display: flex;
+    padding-right: 50px;
+}
+
+
+.fm-style{
+    align-items: center;
+}
+
+.nav_box{
+	background: #758283;
+	position: relative;
+	padding: 40px;
+	border-radius: 50px;
+	display: flex;
+}
+
+.search_box .search_btn{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: #CAD5E2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #242B2E;
+	border : 0px;
+	margin-left: 20px;
+	padding-top: px;
+	cursor: pointer;
+}
+
+.search_box .input_search{
+	outline: none;
+	border: 0;
+	background: #CAD5E2;
+	border-radius: 60px;
+	padding: 25px 20px;
+	width: 500px; 
+	height: 60px;
+	color: black;
+    
+}
+
+.instalinks{
+	min-height: 0vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    
+	
+}
+
+.instalinks .buttons {
+   background:#242B2E;
+   border-radius: 50px;
+   height      : auto;
+   display: flex;
+   justify-content: center;
+   width       : auto;
+   border      : 0px;
+   color: #fff;
+   padding: 15px 20px;
+   min-width:100px;
+   margin-left: 10px;
+   
+}
+
+.buttons:hover{
+    background: #0D0D0D;
+    
+}
+
+.buttons:active{
+    background: #758283;
+}
+
+
+
+.wrapper_top{
+	min-height: 0vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.top_navbar {
+	background-color: #758283 ;
+	overflow: hidden;
+	border-bottom: 5vh;
+
+}
+
+.piechart_ren {
+	flex: 50%;
+    
+}
+
+.pie_chart_plus {
+	display: flex;
+    background-color: aliceblue;
+   
+}
+
+.piechart_info {
+	height: 500px;
+	width: 900px;
+}
+.pie_text {
+	
+	padding-left: 20vh;
+    padding-bottom: 20vh;
+    padding-top: 10vh;
+    
+    
+    
+
+}
+.text {
+	padding-bottom: 4vh;
+	font-family: verdana;
+
+}
+
+table { 
+    table-layout:fixed;
+}
+
+th { 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-wrap: break-word;
+}
+
+
+
+.word_cloud{
+	padding: 0;
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    max-height: 50%;
+}
+
+
+
+.piechart_br{
+    border:0.5px solid black;
+    border-width:thin;
+    border-color: #CAD5E2;
+    background-color: whitesmoke;
+}
+.styled-table {
+	
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+	width : 90%;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #242B2E;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row{
+    font-weight: bold;
+    color: #242B2E;
+}

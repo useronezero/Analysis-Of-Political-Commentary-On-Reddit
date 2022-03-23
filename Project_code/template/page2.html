@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sub Info</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+  <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='animate.css') }}">
+	<link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link
+    rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  
+  <!--The slider button-->
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    </style>
+  
+</head>
+<body>
+
+<div class="top_navbar">
+  <form action = "/sub_data" method = "POST">
+		<div class="search_box" >
+			<input type="text" name = 'sub'class="input_search" placeholder="Type in your favourate subreddit">
+			<button type="submit" class="search_btn"><i class="fas fa-search" style="color: #0D0D0D"></i></button>
+		</div>	
+</div>
+<!-- Rendering text and pie-chart-->
+<div class="pie_chart_plus">
+  <div class="piechart_ren">
+    <div class="pie_text">
+      <h3 class="text animated bounceInLeft">Our Prediction : </h3><h1 style="font-weight: bold; padding-bottom: 10px; animation-delay: 0.5s">{{ our_prediction }}</h1>
+      <h3 class="text animated bounceInLeft" style="animation-delay: 0.5s">Closest Subreddit : </h3><h1 style="font-weight: bold; padding-bottom: 10px; animation-delay: 1.0s">{{ sub_data['close_sub'] }}</h1> 
+    </div>
+  </div>
+  <div class="piechart_ren piechart_br animated fadeIn" style="animation-delay: 1s">
+    <div id="piechart" class="piechart_info"></div>
+  </div>  
+</div>
+<!-- Word cloud rendering-->
+<div style="padding: 7px; text-align: center; background: #00ecbd; color: black;">
+  <h1>Word Cloud</h1>
+</div>
+<div class= "canvas">
+<img class ="word_cloud" src="{{ url_for('static',filename= sub_data['wordcloud']) }}" alt="word cloud">
+</div>
+
+
+
+<!-- table for displaying closest subs-->
+
+<div style="padding: 7px; text-align: center; background: #00ecbd; color: black; font-size: 20px;">
+  <h2 style="margin: 0; display: inline-block; padding-right: 50px;">Closest Subs</h2>
+  <label class="switch">
+    <input type="checkbox" onclick="graphtotable()">
+    <span class="slider round"></span>
+  </label>
+</div>
+
+
+<div id ="close_table" style="display: none;">
+<table class="styled-table" align="center" style="margin: 0px auto;">
+  <thead>
+    <tr>
+      <th>Subreddit Name</th>
+      <th>Visits</th>
+      <th>percentage</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for key, data in sub_data['closesnt_subs'].items() %}
+          <tr>
+            <th class="colour-change">{{ data['subname'] }}</th>
+            <th>{{ data['visits'] }}</th>
+            <th>{{ data['percentage']}}</th>
+          </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+<div id ="close_pie_chart" style="background-color: aliceblue; padding-left: 200px;">
+  <div class="piechart_ren" style="flex: 100%;">
+    <div id="close_pie_chart" class="piechart_info" style="height: 500px; width: 1000px;"></div>
+  </div>  
+</div>
+<!-- table for displaying users-->
+<div style="padding: 7px; text-align: center; background: #00ecbd; color: black; font-size: 20px;">
+  <h2>User Information</h2>
+</div>
+<table class="styled-table" align="center" style="margin: 0px auto;">
+  <thead> 
+    <tr>
+      <th>User Name</th>
+      <th>Right Prediction</th>
+      <th>Left Prediction</th>
+      <th>User Affiliation</th>
+      <th>favourate Sub</th>
+    </tr>
+  </thead>
+  <tbody>  
+      {% for key, data in sub_data['user_info'].items() %}
+          <tr class="active-row">
+            <th><a href="{{ url_for('user_data' , user_id = key|string)  }}"> {{ key }}</a></th>
+            <th>{{ data['user_prediction'][0] }}</th>
+            <th>{{ data['user_prediction'][1] }}</th>
+            <th>{{ data['real_aff'] }}</th>
+            <th>{{ data['fav_sub']}}</th>
+          </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var right_man = {{ sub_data['pol_score'][0]| tojson }};
+      var left_man = {{ sub_data['pol_score'][1]| tojson }};
+      var data = google.visualization.arrayToDataTable([
+      ['Names', 'side'],
+        ['Right',     right_man],
+        ['Left',      left_man],
+      ]);
+
+      var options = {
+        title: 'Subreddits Affiliation',
+        backgroundColor: '#e0dbef'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+      chart.draw(data, options);
+    }
+  </script>
+
+<script>
+  function graphtotable() {
+    var x = document.getElementById("close_table");
+    var y = document.getElementById("close_pie_chart")
+    if (x.style.display === "block") {
+      x.style.display = "none";
+      y.style.display = "block"
+    } else {
+      x.style.display = "block";
+      y.style.display = "none";
+    }
+  }
+  </script>
+
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+      ['Subreddit Name', 'Upvotes'],
+      {% for key, data in sub_data['closesnt_subs'].items() %}
+      ['{{ data['subname'] }}', parseInt({{ data['visits'] }}) ],
+      {% endfor %}
+      ]);
+    
+    
+
+    var options = {
+      title: 'User activity on subreddits',
+      backgroundColor: '#f0f8ff',
+      is3D: true,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('close_pie_chart'));
+
+    chart.draw(data, options);
+  }
+</script>
+</body>
+</html>
